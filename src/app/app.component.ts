@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +12,13 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(private readonly fb: FormBuilder) {}
+  dogName = signal('Shiba Inu');
+  dogBreed = signal('Dog Breed');
+  computed = computed(() => `Computed ${this.dogName()}: ${this.dogBreed()}`);
+
+  constructor(private readonly fb: FormBuilder) {
+    effect(() => console.log(`Effect: ${this.computed()}`));
+  }
 
   exampleForm = this.fb.group({
     name: ['', Validators.required],
