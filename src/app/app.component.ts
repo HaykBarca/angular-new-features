@@ -15,6 +15,8 @@ export class AppComponent {
   dogName = signal('Shiba Inu');
   dogBreed = signal('Dog Breed');
   computed = computed(() => `Computed ${this.dogName()}: ${this.dogBreed()}`);
+  isLoggedIn = signal(false);
+  animals = signal(['Dog', 'Cat', 'Worm']);
 
   constructor(private readonly fb: FormBuilder) {
     effect(() => console.log(`Effect: ${this.computed()}`));

@@ -1,3 +1,4 @@
+@if (isLoggedIn()) {
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
@@ -14,9 +15,25 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button [routerLink]="['/lazy']">LIKE</button>
-    <button mat-button>SHARE</button>
+    <button mat-button [routerLink]="['/lazy']">Lazy route</button>
+    <button mat-button (click)="isLoggedIn.set(false)">Log Out</button>
   </mat-card-actions>
 </mat-card>
+} @else {
+<button mat-button (click)="isLoggedIn.set(true)">Log In</button>
+}
 
+@switch (isLoggedIn()) {
+@case (true) {
 <router-outlet></router-outlet>
+}
+@case (false) {
+<p>Please Log in to see the lazy route</p>
+}
+}
+
+<ul>
+  @for (item of animals(); track $index) {
+  <li>{{$index + 1}}. {{item}}</li>
+  }
+</ul>
